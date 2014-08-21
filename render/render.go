@@ -48,7 +48,7 @@ func writeHeader(w http.ResponseWriter, code int, contentType string) {
 }
 
 func (_ jsonRender) Render(w http.ResponseWriter, code int, data ...interface{}) error {
-	writeHeader(w, code, "application/json")
+	writeHeader(w, code, "application/json; charset=UTF-8")
 	encoder := json.NewEncoder(w)
 	return encoder.Encode(data[0])
 }
