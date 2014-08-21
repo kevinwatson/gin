@@ -1,7 +1,7 @@
 package gin
 
 import (
-	"github.com/gin-gonic/gin/binding"
+	"github.com/mediaFORGE/gin/binding"
 	"net/http"
 )
 

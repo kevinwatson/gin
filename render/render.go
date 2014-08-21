@@ -49,8 +49,9 @@ func writeHeader(w http.ResponseWriter, code int, contentType string) {
 
 func (_ jsonRender) Render(w http.ResponseWriter, code int, data ...interface{}) error {
 	writeHeader(w, code, "application/json; charset=UTF-8")
-	encoder := json.NewEncoder(w)
-	return encoder.Encode(data[0])
+	js, err := json.MarshalIndent(data[0], "", "  ")
+	w.Write(js)
+	return err
 }
 
 func (_ redirectRender) Render(w http.ResponseWriter, code int, data ...interface{}) error {

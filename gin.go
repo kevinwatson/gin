@@ -2,8 +2,8 @@ package gin
 
 import (
 	"fmt"
-	"github.com/gin-gonic/gin/render"
 	"github.com/julienschmidt/httprouter"
+	"github.com/mediaFORGE/gin/render"
 	"html/template"
 	"math"
 	"net/http"

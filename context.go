@@ -4,9 +4,9 @@ import (
 	"bytes"
 	"errors"
 	"fmt"
-	"github.com/gin-gonic/gin/binding"
-	"github.com/gin-gonic/gin/render"
 	"github.com/julienschmidt/httprouter"
+	"github.com/mediaFORGE/gin/binding"
+	"github.com/mediaFORGE/gin/render"
 	"log"
 	"net/http"
 )
