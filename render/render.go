@@ -49,7 +49,7 @@ func writeHeader(w http.ResponseWriter, code int, contentType string) {
 }
 
 func (_ jsonRender) Render(w http.ResponseWriter, code int, data ...interface{}) error {
-	writeHeader(w, code, "application/json")
+	writeHeader(w, code, "application/json; charset=UTF-8")
 	js, err := json.MarshalIndent(data[0], "", "  ")
 
 	// the & is being escaped  in the json.Marshal and MarshalIndent
