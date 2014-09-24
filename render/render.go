@@ -1,6 +1,7 @@
 package render
 
 import (
+	"bytes"
 	"encoding/json"
 	"encoding/xml"
 	"fmt"
@@ -48,9 +49,17 @@ func writeHeader(w http.ResponseWriter, code int, contentType string) {
 }
 
 func (_ jsonRender) Render(w http.ResponseWriter, code int, data ...interface{}) error {
-	writeHeader(w, code, "application/json; charset=UTF-8")
+	writeHeader(w, code, "application/json")
 	js, err := json.MarshalIndent(data[0], "", "  ")
-	w.Write(js)
+
+	// the & is being escaped  in the json.Marshal and MarshalIndent
+	// This is causing a problem rebuilding json object if any ampersands exist
+	// replace the escaped character with the actuall & (Ampersand)
+	var o = []byte{92, 117, 48, 48, 50, 54} // `\u0026`
+	var n = []byte{38}                      // `&`
+	jsNew := bytes.Replace(js, o, n, -1)
+	w.Write(jsNew)
+
 	return err
 }
 
