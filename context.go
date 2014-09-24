@@ -4,11 +4,12 @@ import (
 	"bytes"
 	"errors"
 	"fmt"
+	"log"
+	"net/http"
+
 	"github.com/julienschmidt/httprouter"
 	"github.com/mediaFORGE/gin/binding"
 	"github.com/mediaFORGE/gin/render"
-	"log"
-	"net/http"
 )
 
 const (
@@ -227,6 +228,13 @@ func (c *Context) Render(code int, render render.Render, obj ...interface{}) {
 // It also sets the Content-Type as "application/json".
 func (c *Context) JSON(code int, obj interface{}) {
 	c.Render(code, render.JSON, obj)
+}
+
+// Writes a message as JSON and attaches an error to the current context
+// Calls JSON, Fail and then Abort
+func (c *Context) JSONFail(code int, obj interface{}, err error) {
+	c.JSON(code, obj)
+	c.Fail(code, err)
 }
 
 // Serializes the given struct as XML into the response body in a fast and efficient way.
