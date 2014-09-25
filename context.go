@@ -231,10 +231,11 @@ func (c *Context) JSON(code int, obj interface{}) {
 }
 
 // Writes a message as JSON and attaches an error to the current context
-// Calls JSON, Fail and then Abort
+// Calls JSON, Error and then Abort
 func (c *Context) JSONFail(code int, obj interface{}, err error) {
 	c.JSON(code, obj)
-	c.Fail(code, err)
+	c.Error(err, "Operation aborted")
+	c.Abort(-1) //negative means don't modify the http status code
 }
 
 // Serializes the given struct as XML into the response body in a fast and efficient way.
